@@ -2,16 +2,15 @@
 
 const Antl = use('Antl')
 
-class User {
+class Project {
   get validateAll () {
     return true
   }
 
   get rules () {
     return {
-      username: 'required|unique:users',
-      email: 'required|email|unique:users',
-      password: 'required|confirmed'
+      title: 'required',
+      description: 'required'
     }
   }
 
@@ -20,4 +19,4 @@ class User {
   }
 }
 
-module.exports = User
+module.exports = Project
