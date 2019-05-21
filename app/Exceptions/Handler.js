@@ -1,5 +1,10 @@
 'use strict'
 
+// const Raven = require('raven')
+
+const Sentry = require('sentry')
+const Config = use('Config')
+
 // env para identifica ambiente de desenvolvimento ou produção
 const Env = use('Env')
 // youch é um formatador de erros
@@ -49,8 +54,12 @@ class ExceptionHandler extends BaseExceptionHandler {
    *
    * @return {void}
    */
-  async report (error, { request }) {
-    console.log(error)
+  async report (error, { request, auth }) {
+    // console.log(error)
+    // Raven.config(Config.get('services.sentry.dsn'))
+    // Raven.captureException(error)
+    Sentry.init({ dsn: Config.get('services.sentry.dsn') })
+    Sentry.captureException(error, request, auth)
   }
 }
 
